@@ -171,5 +171,12 @@ def simple_sort(data: List[int]) -> List[list]:
     Returns:
 
     """
-    sorted_list = sorted(data)
-    return sorted_list
+    times = len(data)
+    count = 1
+
+    while count < times:
+        for i in range(times - count):
+            if data[i] > data[i + 1]:
+                data[i], data[i + 1] = data[i + 1], data[i]
+        count += 1
+    return data
