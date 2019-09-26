@@ -170,7 +170,6 @@ def simple_sort(data: List[int]) -> List[list]:
     """
     times = len(data)
     count = 1
-
     while count < times:
         for i in range(times - count):
             if data[i] > data[i + 1]:
