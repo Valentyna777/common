@@ -84,7 +84,7 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
     """
     try:
         return int(first_value) * int(second_value)
-    except TypeError:
+    except:
         raise ValueError("Not valid input data")
 
 
@@ -120,9 +120,7 @@ def some_loop_exercise() -> list:
         i += 1
         if i >= 13:
             break
-        if i == 6:
-            continue
-        if i == 7:
+        if i in (6, 7):
             continue
         my_list.append(i)
     return my_list
