@@ -48,11 +48,10 @@ def multiple_ints(first_value: int, second_value: int) -> int:
     Returns:
         Product of elements
     """
-
     if isinstance(first_value, int) and isinstance(second_value, int):
-            return first_value * second_value
+        return first_value * second_value
     else:
-            raise ValueError
+        raise ValueError
 
 
 def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
@@ -84,11 +83,8 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
     """
     try:
         return int(first_value) * int(second_value)
-    except:
+    except (TypeError, ValueError):
         raise ValueError("Not valid input data")
-
-
-
 
 
 def is_word_in_text(word: str, text: str) -> bool:
@@ -126,7 +122,6 @@ def some_loop_exercise() -> list:
     return my_list
 
 
-
 def remove_from_list_all_negative_numbers(data: List[int]) -> list:
     """
     Use loops to solve this task.
@@ -152,10 +147,14 @@ def alphabet() -> dict:
         alphabet()
         >>> {"a": 1, "b": 2 ...}
     """
-    alph = list('abcdefghijklmnopqrstuvwxyz')
+    alph = []
     numbers = []
     for i in range(1, 27):
         numbers.append(i)
+
+    for letter in range(97, 123):
+        alph.append(chr(letter))
+
     new_dict = dict(zip(numbers, alph))
     return new_dict
 
