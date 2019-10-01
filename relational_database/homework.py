@@ -61,7 +61,8 @@ def task_4_update_customer(con):
 
     """
     with con.cursor() as cursor:
-        cursor.execute("UPDATE customers SET customername='Johnny Depp' WHERE customerid=1;")
+        cursor.execute("UPDATE customers SET customername='Johnny Depp' WHERE\
+                        customerid=(SELECT MIN(customerid) FROM customers);")
 
 
 def task_5_delete_the_last_customer(con) -> None:
@@ -72,7 +73,7 @@ def task_5_delete_the_last_customer(con) -> None:
         con: psycopg connection
     """
     with con.cursor() as cursor:
-        cursor.execute("DELETE FROM customers WHERE customerid=91;")
+        cursor.execute("DELETE FROM customers WHERE customerid=(SELECT MAX(customerid) FROM customers);")
 
 
 def task_6_list_all_supplier_countries(cur) -> list:
@@ -149,7 +150,7 @@ def task_11_list_customers_starting_from_11th(cur):
 
     Returns: 11 records
     """
-    cur.execute("SELECT * FROM customers WHERE customerid>=12;")
+    cur.execute("SELECT * FROM customers ORDER BY customerid OFFSET 11;")
     return cur.fetchall()
 
 
