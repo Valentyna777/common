@@ -61,10 +61,6 @@ class Rectangle:
     def get_radius_of_inscribed_circle(self):
         """
         Get radius of inscribed circle in rectangle
-        due to the formula:      d
-                              -------
-                                2√2
-        where d is diagonal of the rectangle
         :return:
         """
         if self.width != self.height:

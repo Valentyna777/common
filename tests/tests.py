@@ -30,14 +30,14 @@ class TestRectangle(unittest.TestCase):
     def test_get_rectangle_diagonal(self):
         func_result = self.rec.get_rectangle_diagonal()
         func_result1 = self.rec1.get_rectangle_diagonal()
-        self.assertEqual(func_result, 8.54400374531753)
-        self.assertEqual(func_result1, 5.656854249492381)
+        self.assertAlmostEqual(func_result, 8.54400374531753)
+        self.assertAlmostEqual(func_result1, 5.656854249492381)
 
     def test_get_radius_of_circumscribed_circle(self):
         func_result = self.rec.get_radius_of_circumscribed_circle()
         func_result1 = self.rec1.get_radius_of_circumscribed_circle()
-        self.assertEqual(func_result, 8.54400374531753/2)
-        self.assertEqual(func_result1, 5.656854249492381/2)
+        self.assertAlmostEqual(func_result, 8.54400374531753/2)
+        self.assertAlmostEqual(func_result1, 5.656854249492381/2)
 
 
     def test_get_radius_of_inscribed_circle_error(self):
