@@ -93,7 +93,9 @@ class Tests(unittest.TestCase):
 
     def test_task_18(self):
         input_string = 'abcd'
+        input_string_1 = 'xyz'
         self.assertEqual(task_18(input_string), 'bcdE')
+        self.assertEqual(task_18(input_string_1), 'yzA')
 
     def test_task_19(self):
         input_string = 'edcba'

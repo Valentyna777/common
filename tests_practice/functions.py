@@ -209,7 +209,12 @@ def task_18(str_1):
     (ie. c becomes d, z becomes a). Then capitalize every vowel in this new string
     (a, e, i, o, u) and finally return this modified string.
     """
-    l1 = [chr(ord(i) + 1) for i in str_1]
+    l1 = []
+    for i in str_1:
+        if i == 'z':
+            l1.append('a')
+        else:
+            l1.append(chr(ord(i) + 1))
     l2 = []
     for i in l1:
         if i in 'aeiou':
