@@ -65,12 +65,11 @@ class Cat:
 
     def _set_average_speed(self):
         if self.age <= 7:
-            self.average_speed = 12
+            return 12
         elif 8 <= self.age <= 10:
-            self.average_speed = 9
+            return 9
         else:
-            self.average_speed = 6
-        return self.average_speed
+            return 6
 
     def run(self, hours):
         km_per_hour = self.get_average_speed() * hours
