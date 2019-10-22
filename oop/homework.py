@@ -38,20 +38,17 @@ class Cat:
 
     """
 
-    average_speed = None
-    saturation_level = 50
-
     def __init__(self, age):
         self.age = age
         self.average_speed = self._set_average_speed()
+        self.saturation_level = 50
 
     def eat(self, product):
-        if product == 'fodder':
-            self._increase_saturation_level(10)
-        elif product == 'apple':
-            self._increase_saturation_level(5)
-        elif product == 'milk':
-            self._increase_saturation_level(2)
+        products = {'fodder': 10, 'apple': 5, 'milk': 2}
+        if product in products.keys():
+            self._increase_saturation_level(products[product])
+        else:
+            ValueError("Sorry we don't have such product")
 
     def _reduce_saturation_level(self, value):
         self.saturation_level = self.saturation_level - value
@@ -110,19 +107,19 @@ class Cheetah(Cat):
     """
 
     def eat(self, product):
-        if product == 'gazelle':
-            self._increase_saturation_level(30)
-        elif product == 'rabbit':
-            self._increase_saturation_level(15)
+        products = {'gazelle': 30, 'rabbit': 15}
+        if product in products.keys():
+            self._increase_saturation_level(products[product])
+        else:
+            ValueError("Sorry we don't have such product")
 
     def _set_average_speed(self):
         if self.age <= 5:
-            self.average_speed = 90
+            return 90
         elif 6 <= self.age <= 15:
-            self.average_speed = 75
+            return 75
         else:
-            self.average_speed = 40
-        return self.average_speed
+            return 40
 
 
 class Wall:
@@ -215,9 +212,8 @@ class Door:
     def __init__(self, width, height):
         self.width = width
         self.height = height
-
-    wood_price = 10
-    metal_price = 3
+        self.wood_price = 10
+        self.metal_price = 3
 
     def door_square(self):
         return self.width * self.height
@@ -294,13 +290,12 @@ class House:
       (from walls_square divide windows and door square)
 
     """
-    __walls = []
-    __windows = []
-    __roof = None
-    __door = None
 
     def __init__(self):
-        pass
+        self.__walls = []
+        self.__windows = []
+        self.__roof = None
+        self.__door = None
 
     def create_wall(self, width, height):
         if width == 0 or height == 0:
