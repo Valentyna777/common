@@ -7,7 +7,6 @@ def words_count(data):
     return len(data.split(' '))
 
 
-
 @app.route('/')
 def get_home_page():
     return render_template("home.html", data=get_data())
@@ -64,7 +63,6 @@ def get_recharger():
 @app.route('/author')
 def get_author():
     return render_template('author.html')
-
 
 
 if __name__ == "__main__":
