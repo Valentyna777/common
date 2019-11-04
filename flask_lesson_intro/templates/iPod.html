@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+
+{%block main_info%}
+<style>
+   .image {
+    text-align: center;
+   }
+  </style>
+
+<div class="image">
+<img src="{{url_for('static', filename='iPod.jpg')}}" width="300" height="300"/>
+</div>
+
+<style>
+   .text {
+   text-align: center;
+   font-family: Helvetica;
+   font-size: 15;
+   }
+</style>
+
+<div class="text"><h2>{{page_name}}</h2>
+<h3>{{page_text}}</h3>
+<h5>Number of words: {{page_words}}</h5>
+</div>
+
+{% endblock %}

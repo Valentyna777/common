@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<nav>
+    <style>
+    .navbar {
+  font-family: Helvetica;
+  font-size: 150%;
+  background-color: #797D7F;
+  color: white;
+     }
+  li {
+  display: inline-block;
+  margin: 15px;
+      }
+    </style>
+    <ul>
+        <li><a class="navbar" href="{{url_for('get_home_page')}}"> Home </a></li>
+        <li><a class="navbar" href="{{url_for('get_alarm_clock')}}"> Alarm clock </a></li>
+        <li><a class="navbar" href="{{url_for('get_headphones')}}"> Headphones </a></li>
+        <li><a class="navbar" href="{{url_for('get_iPod')}}"> iPod </a></li>
+        <li><a class="navbar" href="{{url_for('get_calculator')}}"> Calculator</a></li>
+        <li><a class="navbar" href="{{url_for('get_coffeemaker')}}"> Coffeemaker </a></li>
+        <li><a class="navbar" href="{{url_for('get_recharger')}}"> Recharger </a></li>
+    </ul>
+
+</nav>
+<!--/.Navbar-->
+
+
+  {%block main_info%}
+  {% endblock %}
+
+
+<!-- Footer -->
+<footer>
+    <style>
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  font-family: Helvetica;
+  font-size: 150%;
+  background-color: #797D7F;
+  color: white;
+  text-align: center;
+}
+</style>
+
+<div class="footer">
+ <p>All rights reserved</p>
+    <p>Made with love and tears :)</p>
+    <a>Copyright<a> <a href="{{url_for('get_author')}}" style="color: LightPink " >Valentyna Korneyko</a>
+</div>
+
+</footer>
+<!-- Footer -->
