@@ -19,6 +19,7 @@ def get_super():
 @supermarkets.route('/supermarket/<int:id>', methods=["GET"])
 def get_supermarket(id):
     supermarket = get_super_data()[id-1]
+    session[supermarket['name']] = True
     return render_template("supermarket.html", supermarket=supermarket)
 
 

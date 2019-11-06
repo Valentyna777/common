@@ -10,7 +10,7 @@
                 {% if session[supermarket['name']] %}
                     <li><a>{{supermarket['name']}}</a></li>
                 {% else %}
-                    <li><a href="{{url_for('supermarkets.get_supermarket', id=supermarket['id'])}}">{{supermarket['name']}}</a></li>
+                    <li><h3><a href="{{url_for('supermarkets.get_supermarket', id=supermarket['id'])}}">{{supermarket['name']}}</a></h3></li>
                 {% endif %}
             {% endfor %}
             <div style="margin-left: 150px"><a href="{{url_for('supermarkets.add_supermarket_form')}}">Add supermarket</a></div>

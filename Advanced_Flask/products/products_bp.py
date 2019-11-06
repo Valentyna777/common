@@ -19,6 +19,7 @@ def get_prod():
 @products.route('/product/<int:id>', methods=["GET"])
 def get_product(id):
     product = get_prod_data()[id-1]
+    session[product['name']] = True
     return render_template("product.html", product=product)
 
 
