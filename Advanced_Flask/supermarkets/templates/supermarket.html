@@ -1,0 +1,13 @@
+{% extends "base_supermarket.html" %}
+
+{% block main_info_supermarket %}
+
+
+<div class="card" style="width: 56rem;">
+  <img src="{{url_for('static', filename=supermarket.img_name)}}" class="card-img-top">
+  <div class="card-body">
+    <h1 class="card-title">{{supermarket.name}}</h1>
+    <p class="card-text">{{supermarket.location}}</p>
+  </div>
+
+{% endblock %}

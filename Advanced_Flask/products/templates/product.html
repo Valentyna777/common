@@ -1,0 +1,14 @@
+{% extends "base_product.html" %}
+
+{% block main_info_product %}
+
+
+<div class="card" style="width: 56rem;">
+  <img src="{{url_for('static', filename=product.img_name)}}" class="card-img-top">
+  <div class="card-body">
+    <h1 class="card-title">{{product.name}}</h1>
+    <h3 class="card-text">${{product.price}}</h3>
+    <p class="card-text">{{product.description}}</p>
+  </div>
+
+{% endblock %}
