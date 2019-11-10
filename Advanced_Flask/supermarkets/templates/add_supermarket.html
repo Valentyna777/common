@@ -3,11 +3,6 @@
 {% block main_info_supermarket %}
     <h1>Add supermarket</h1>
     <form action="/add_supermarket" method="post" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.id.label }}<br>
-            {{ form.id(size=32) }}<br>
-        </p>
         <p>
             {{ form.name.label }}<br>
             {{ form.name(size=32) }}<br>

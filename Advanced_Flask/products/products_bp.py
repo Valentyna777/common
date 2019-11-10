@@ -1,26 +1,38 @@
 import json
 
-from flask import Blueprint, request, render_template, session
-from flask_wtf import Form
-from wtforms import validators, IntegerField, FileField, StringField
+from flask import Blueprint, request, render_template, session, abort
+from wtforms import Form, IntegerField, FileField, StringField, validators
 
 from products.get_data_from_json import get_prod_data
 
 products = Blueprint('products', __name__, template_folder='templates')
 
+product_list = list(get_prod_data())
+last_product = product_list[-1]
+last_id = last_product['id']
+
 
 @products.route('/product', methods=['GET', 'POST'])
 def get_prod():
+    if request.args:
+        for key, value in request.args.items():
+            new_list = [i for i in product_list if i['price'] == int(value) or i['id'] == int(value)]
+            if len(new_list) > 0:
+                return render_template('all_products.html', data=new_list)
+            else:
+                abort(404)
     if request.method == 'GET':
-        data = get_prod_data()
-        return render_template('all_products.html', data=data)
+        return render_template('all_products.html', data=product_list)
 
 
 @products.route('/product/<int:id>', methods=["GET"])
 def get_product(id):
-    product = get_prod_data()[id-1]
-    session[product['name']] = True
-    return render_template("product.html", product=product)
+    try:
+        product = product_list[id-1]
+        session[product['name']] = True
+        return render_template("product.html", product=product)
+    except IndexError:
+        abort(404)
 
 
 class AddForm(Form):
@@ -35,9 +47,9 @@ class AddForm(Form):
 def add_product_form():
     form = AddForm()
     if request.method == 'POST':
-        new_product = {"id": request.form['id'], "name": request.form['name'], "description": request.form['description'],
+        new_product = {"id": last_id+1, "name": request.form['name'], "description": request.form['description'],
                        "img_name": request.files['img_name'].filename, "price": request.form['price']}
-        json.dumps(new_product)
+        product_list.append(new_product)
     return render_template('add_product.html', form=form)
 
 

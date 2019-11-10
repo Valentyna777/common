@@ -1,26 +1,36 @@
-import json
-
-from flask import Blueprint, request, render_template, session
-from flask_wtf import Form
-from wtforms import IntegerField, StringField, FileField, validators
+from flask import Blueprint, request, render_template, session, abort
+from wtforms import Form, IntegerField, StringField, FileField, validators
 
 from supermarkets.get_data_from_json import get_super_data
 
 supermarkets = Blueprint('supermarkets', __name__, template_folder='templates')
 
+supermarket_list = list(get_super_data())
+last_supermarket = supermarket_list[-1]
+last_id = last_supermarket['id']
+
 
 @supermarkets.route('/supermarket', methods=['GET', 'POST'])
 def get_super():
-    if request.method == 'GET':
-        data = get_super_data()
-        return render_template('all_supermarkets.html', data=data)
+    if request.args:
+        for key, value in request.args.items():
+            new_list = [i for i in supermarket_list if i['location'] == value]
+            if len(new_list) > 0:
+                return render_template('all_supermarkets.html', data=new_list)
+            else:
+                abort(404)
+    elif request.method == 'GET':
+        return render_template('all_supermarkets.html', data=supermarket_list)
 
 
 @supermarkets.route('/supermarket/<int:id>', methods=["GET"])
 def get_supermarket(id):
-    supermarket = get_super_data()[id-1]
-    session[supermarket['name']] = True
-    return render_template("supermarket.html", supermarket=supermarket)
+    try:
+        supermarket = supermarket_list[id-1]
+        session[supermarket['name']] = True
+        return render_template("supermarket.html", supermarket=supermarket)
+    except IndexError:
+        abort(404)
 
 
 class AddForm(Form):
@@ -34,9 +44,9 @@ class AddForm(Form):
 def add_supermarket_form():
     form = AddForm()
     if request.method == 'POST':
-        new_supermarket = {"id": request.form['id'], "name": request.form['name'], "location": request.form['location'],
+        new_supermarket = {"id": last_id+1, "name": request.form['name'], "location": request.form['location'],
                            "img_name": request.files['img_name'].filename}
-        json.dumps(new_supermarket)
+        supermarket_list.append(new_supermarket)
     return render_template('add_supermarket.html', form=form)
 
 
