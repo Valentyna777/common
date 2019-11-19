@@ -39,37 +39,31 @@ class Rooms(Resource):
             for room in rooms_list:
                 if room.status == args['status']:
                     status_list.append(room)
-                    return status_list
+            return status_list
         return rooms_list
 
     @marshal_with(rooms_structure)
     def post(self):
-        number = request.args.get('number')
-        level = request.args.get('level')
-        status = request.args.get('status')
-        price = request.args.get('price')
-        rooms_list.append(Room(number, level, status, price))
-        return "ok"
+        content = request.json
+        rooms_list.append(Room(content['number'], content['level'], content['status'], content['price']))
+        return rooms_list
 
     @marshal_with(rooms_structure)
     def patch(self):
-        number = request.args.get('number')
-        level = request.args.get('level')
-        status = request.args.get('status')
-        price = request.args.get('price')
+        content = request.json
+        number = content.get('number')
         for room in rooms_list:
             if room.number == number:
                 rooms_list.remove(room)
-        rooms_list.append(Room(number, level, status, price))
-        return "Ok"
+        rooms_list.append(Room(content['number'], content['level'], content['status'], content['price']))
+        return rooms_list
 
-    @marshal_with(rooms_structure)
-    def delete(self, number):
+    def delete(self, value):
         for room in rooms_list:
-            if room.number == int(number):
+            if room.number == int(value):
                 rooms_list.remove(room)
-                return 'Ok'
+                return 'Room is deleted'
         return "Room does not exist"
 
 
-api.add_resource(Rooms, '/rooms', '/rooms/<number>')
+api.add_resource(Rooms, '/rooms', '/rooms/<value>')

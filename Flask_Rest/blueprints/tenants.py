@@ -17,7 +17,7 @@ class Tenant:
 
 
 address_structure = {'city': fields.String,
-                     'street': fields.String, }
+                     'street': fields.String}
 
 tenants_structure = {'name': fields.String,
                      'passport_id': fields.String,
@@ -47,24 +47,20 @@ class Tenants(Resource):
 
     @marshal_with(tenants_structure)
     def patch(self):
-        name = request.args.get('name')
-        passport_id = request.args.get('passport_id')
-        age = request.args.get('age')
-        sex = request.args.get('sex')
-        address = request.args.get('address')
-        room_number = request.args.get('room_number')
+        content = request.json
+        passport_id = content.get('passport_id')
         for tenant in tenants_list:
             if tenant.passport_id == passport_id:
                 tenants_list.remove(tenant)
-        tenants_list.append(Tenant(name, passport_id, age, sex, address, room_number))
-        return 'ok'
+                tenants_list.append(Tenant(content['name'], content['passport_id'], content['age'], content['sex'],
+                                    content['address'], content['room_number']))
+                return tenants_list
 
-    @marshal_with(tenants_structure)
     def delete(self, passport_id):
         for tenant in tenants_list:
             if tenant.passport_id == passport_id:
                 tenants_list.remove(tenant)
-                return 'Ok'
+                return 'Tenant id deleted'
         return "Person does not exist"
 
 
