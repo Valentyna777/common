@@ -1,7 +1,6 @@
 import json
 from flask import request
-from flask_restful import Resource, fields, marshal_with
-
+from flask_restful import Resource, fields, marshal_with, reqparse
 
 from db import db, Staff
 
@@ -11,8 +10,11 @@ staff_structure = {'passport_id': fields.String,
                    'position': fields.String,
                    'salary': fields.Integer}
 
+parser = reqparse.RequestParser()
+parser.add_argument('passport_id, type=str')
 
-class StaffR(Resource):
+
+class StaffResource(Resource):
     @marshal_with(staff_structure)
     def get(self):
         return Staff.query.all()

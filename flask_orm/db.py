@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAchemy()
+
+db = SQLAlchemy()
 
 
 class Room(db.Model):

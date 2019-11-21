@@ -1,7 +1,6 @@
 import json
 from flask import request
-from flask_restful import Resource, fields, marshal_with
-
+from flask_restful import Resource, fields, marshal_with, reqparse
 
 from db import db, Room
 
@@ -12,8 +11,12 @@ rooms_structure = {'number': fields.Integer,
                    'price': fields.Integer,
                    'tenant_id': fields.Integer}
 
+parser = reqparse.RequestParser()
+parser.add_argument('number', type=int)
+parser.add_argument('status', type=str)
 
-class Rooms(Resource):
+
+class RoomsResource(Resource):
     @marshal_with(rooms_structure)
     def get(self):
         return Room.query.all()
