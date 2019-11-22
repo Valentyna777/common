@@ -1,9 +1,9 @@
 from flask import Flask
 
-from blueprints.staff import staff_blueprint
-from blueprints.tenants import tenants_blueprint
+from sources.staff import staff_blueprint
+from sources.tenants import tenants_blueprint
 from config import *
-from blueprints.rooms import rooms_blueprint
+from sources.rooms import rooms_blueprint
 from db import db
 
 

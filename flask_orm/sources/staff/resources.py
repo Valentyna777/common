@@ -17,6 +17,8 @@ parser.add_argument('passport_id, type=str')
 class StaffResource(Resource):
     @marshal_with(staff_structure)
     def get(self):
+        if request.args.get('passport_id'):
+            return Staff.query.filter_by(passport_id=request.args['passport_id']).all()
         return Staff.query.all()
 
     @marshal_with(staff_structure)
@@ -25,12 +27,14 @@ class StaffResource(Resource):
         staff = Staff(**body)
         db.session.add(staff)
         db.session.commit()
+        return Staff.query.all()
 
     @marshal_with(staff_structure)
     def put(self, value):
         body = json.loads(request.data)
         staff = Staff.query.get(value)
         staff.salary = body.get('salary')
+        staff.salary = body.get('position')
         db.session.commit()
         return Staff.query.all()
 

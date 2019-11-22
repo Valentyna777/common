@@ -11,14 +11,14 @@ rooms_structure = {'number': fields.Integer,
                    'price': fields.Integer,
                    'tenant_id': fields.Integer}
 
-parser = reqparse.RequestParser()
-parser.add_argument('number', type=int)
-parser.add_argument('status', type=str)
-
 
 class RoomsResource(Resource):
     @marshal_with(rooms_structure)
-    def get(self):
+    def get(self, value=None):
+        if value:
+            return Room.query.get(value)
+        elif request.args.get('status'):
+            return Room.query.filter_by(status=request.args['status']).all()
         return Room.query.all()
 
     @marshal_with(rooms_structure)
@@ -27,12 +27,15 @@ class RoomsResource(Resource):
         room = Room(**body)
         db.session.add(room)
         db.session.commit()
+        return Room.query.all()
 
     @marshal_with(rooms_structure)
-    def put(self, value):
+    def patch(self, value):
         body = json.loads(request.data)
         room = Room.query.get(value)
         room.status = body.get('status')
+        room.price = body.get('price')
+        room.tenant_id = body.get('tenant_id')
         db.session.commit()
         return Room.query.all()
 

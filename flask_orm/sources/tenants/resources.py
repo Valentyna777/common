@@ -19,6 +19,8 @@ parser.add_argument('passport_id, type=str')
 class TenantsResource(Resource):
     @marshal_with(tenants_structure)
     def get(self):
+        if request.args.get('passport_id'):
+            return Tenant.query.filter_by(passport_id=request.args['passport_id']).all()
         return Tenant.query.all()
 
     @marshal_with(tenants_structure)
@@ -27,11 +29,13 @@ class TenantsResource(Resource):
         tenant = Tenant(**body)
         db.session.add(tenant)
         db.session.commit()
+        return Tenant.query.all()
 
     @marshal_with(tenants_structure)
     def put(self, value):
         body = json.loads(request.data)
         tenant = Tenant.query.get(value)
+        tenant.city = body.get('city')
         tenant.address = body.get('address')
         db.session.commit()
         return Tenant.query.all()
